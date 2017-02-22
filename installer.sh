@@ -36,6 +36,7 @@ sudo apt -y install php7.1-fpm php7.1-cli php7.1-common php7.1-gd php7.1-mysql p
 sudo apt -y install php5.6-fpm php5.6-cli php5.6-common php5.6-gd php5.6-mysql php5.6-mbstring php5.6-mcrypt php5.6-curl php5.6-odbc php5.6 php5.6-gettext php5.6-json php5.6-xml php5.6-xmlrpc php5.6-xsl
 
 #update nginx
+sudo su - root -c 'chown -R root:root /var/log/nginx && chmod 775 /var/log/nginx'
 sudo su - root -c 'rm -f /etc/nginx/nginx.conf'
 sudo su - root -c 'cp /tmp/install/nginx.conf /etc/nginx'
 sudo su - root -c 'cp /tmp/install/vhost.conf /etc/nginx/conf.d'
