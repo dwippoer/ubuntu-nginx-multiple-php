@@ -93,6 +93,6 @@ done
 sudo systemctl restart php5.6-fpm
 sudo systemctl restart php7.1-fpm
 
-sudo reboot
+#sudo reboot
 
 exit 0
