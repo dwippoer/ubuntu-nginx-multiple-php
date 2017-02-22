@@ -79,7 +79,7 @@ sudo systemctl start php7.1-fpm
 sudo sytemctl enable php7.1-fpm
 
 #restart services
-for x in $services
+for p in $services
 do ps -ef | grep -v grep | grep $p > /dev/null
 if [ $? -eq 0 ];
 then 
