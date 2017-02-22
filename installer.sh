@@ -37,8 +37,8 @@ sudo apt -y install php5.6-fpm php5.6-cli php5.6-common php5.6-gd php5.6-mysql p
 
 #update nginx
 sudo su - root -c 'rm -f /etc/nginx/nginx.conf'
-sudo su - root -c 'cp $temp_dir/nginx.conf /etc/nginx'
-sudo su - root -c 'cp $temp_dir/vhost1.conf /etc/nginx/conf.d'
+sudo su - root -c 'cp /tmp/install/nginx.conf /etc/nginx'
+sudo su - root -c 'cp /tmp/install/vhost1.conf /etc/nginx/conf.d'
 
 #create vhost dir
 if [ ! -d $vhost_dir ];
