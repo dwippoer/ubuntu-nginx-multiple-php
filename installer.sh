@@ -60,6 +60,7 @@ then
 else
 	install_mysql;
 fi
+<<<<<<< HEAD
 #update php 5.6
 sudo su - root -c 'sed -i "/;cgi.fix_pathinfo=1/c\cgi.fix_pathinfo=0" /etc/php/5.6/fpm/php.ini'
 sudo su - root -c 'sed -i "/;date.timezone =/c\date.timezone = Asia/Jakarta" /etc/php/5.6/fpm/php.ini'
@@ -75,3 +76,5 @@ sudo systemctl start php7.1-fpm
 sudo sytemctl enable php7.1-fpm
 
 exit 0
+=======
+>>>>>>> 3a645c96a57bc79a07cdc13d857afa21dac3d9de
