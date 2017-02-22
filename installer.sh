@@ -15,13 +15,6 @@ sudo apt -y install git zip unzip nginx
 sudo rm /etc/localtime
 sudo su - root -c 'ln -s /usr/share/zoneinfo/Asia/Jakarta /etc/localtime'
 
-#get the files
-if [ -d $temp_dir ];
-then 
-	sudo rm -rf $temp_dir;
-fi
-git clone https://github.com/dwippoer/ubuntu-nginx-multiple-php.git $temp_dir
-
 #remove any installed php version
 sudo which php
 if [ $? == 0 ];
@@ -94,6 +87,6 @@ done
 sudo systemctl restart php5.6-fpm
 sudo systemctl restart php7.1-fpm
 
-#sudo reboot
+sudo reboot
 
 exit 0
