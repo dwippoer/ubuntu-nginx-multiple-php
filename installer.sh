@@ -1,7 +1,7 @@
 #!/bin/bash
 temp_dir="/tmp/install"
 vhost_dir="/home/vhost"
-
+services="nginx mysql"
 #update repo
 sudo add-apt-repository ppa:ondrej/php -y
 
@@ -16,7 +16,11 @@ sudo rm /etc/localtime
 sudo su - root -c 'ln -s /usr/share/zoneinfo/Asia/Jakarta /etc/localtime'
 
 #get the files
-#git clone https://github.com/dwippoer/ubuntu-nginx-multiple-php.git $temp_dir
+if [ -d $temp_dir ];
+then 
+	sudo rm -rf $temp_dir;
+fi
+git clone https://github.com/dwippoer/ubuntu-nginx-multiple-php.git $temp_dir
 
 #remove any installed php version
 sudo which php
@@ -74,7 +78,19 @@ sudo su - root -c 'sed -i "/listen = /run/php/php7.1-fpm.sock/c\listen = 127.0.0
 sudo systemctl start php7.1-fpm
 sudo sytemctl enable php7.1-fpm
 
-#update php 5.6 fpm
+#restart services
+for x in $services
+do ps -ef | grep -v grep | grep $p > /dev/null
+if [ $? -eq 0 ];
+then 
+	sudo systemctl start $p;
+elif [ $? -gt 0 ];
+then
+	sudo systemctl restart $p;
+fi
+done
 
+sudo systemctl restart php5.6-fpm
+sudo systemctl restart php7.1-fpm
 
 exit 0
