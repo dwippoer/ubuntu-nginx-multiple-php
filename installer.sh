@@ -15,12 +15,22 @@ sudo apt -y install git zip unzip nginx
 sudo rm /etc/localtime
 sudo su - root -c 'ln -s /usr/share/zoneinfo/Asia/Jakarta /etc/localtime'
 
+#remove apache2
+sudo which apache2
+if [ $? == 0 ];
+then
+	sudo apt -y purge apache2;
+fi
+
 #remove any installed php version
 sudo which php
 if [ $? == 0 ];
 then
 	sudo apt -y purge php*;
 fi
+
+#install php 7.0
+sudo apt -y install php7.0-fpm php7.0-cli php7.0-common php7.0-gd php7.0-mysql php7.0-mbstring php7.0-mcrypt php7.0-curl php7.0-odbc php7.0 php7.0-gettext php7.0-json php7.0-xml php7.0-xmlrpc php7.0-xsl
 
 #install php 7.1
 sudo apt -y install php7.1-fpm php7.1-cli php7.1-common php7.1-gd php7.1-mysql php7.1-mbstring php7.1-mcrypt php7.1-curl php7.1-odbc php7.1 php7.1-gettext php7.1-json php7.1-xml php7.1-xmlrpc php7.1-xsl
@@ -65,10 +75,18 @@ sudo su - root -c 'sed -i "/listen = /run/php/php5.6-fpm.sock/c\listen = 127.0.0
 sudo systemctl start php5.6-fpm
 sudo systemctl enable php5.6-fpm
 
+#update php 7.0
+sudo su - root -c 'sed -i "/;cgi.fix_pathinfo=1/c\cgi.fix_pathinfo=0" /etc/php/7.0/fpm/php.ini'
+sudo su - root -c 'sed -i "/;date.timezone =/c\date.timezone = Asia/Jakarta" /etc/php/7.0/fpm/php.ini'
+sudo su - root -c 'sed -i "/listen = /run/php/php7.0-fpm.sock/c\listen = 127.0.0.1:9001" /etc/php/7.0/fpm/pool.d/www.conf'
+sudo systemctl start php7.0-fpm
+sudo systemctl enable php7.0-fpm
+
+
 #update php 7.1
 sudo su - root -c 'sed -i "/;cgi.fix_pathinfo=1/c\cgi.fix_pathinfo=0" /etc/php/7.1/fpm/php.ini'
 sudo su - root -c 'sed -i "/;date.timezone =/c\date.timezone = Asia/Jakarta" /etc/php/7.1/fpm/php.ini'
-sudo su - root -c 'sed -i "/listen = /run/php/php7.1-fpm.sock/c\listen = 127.0.0.1:9001" /etc/php/7.1/fpm/pool.d/www.conf'
+sudo su - root -c 'sed -i "/listen = /run/php/php7.1-fpm.sock/c\listen = 127.0.0.1:9002" /etc/php/7.1/fpm/pool.d/www.conf'
 sudo systemctl start php7.1-fpm
 sudo systemctl enable php7.1-fpm
 
@@ -85,8 +103,7 @@ fi
 done
 
 sudo systemctl restart php5.6-fpm
+sudo systemctl restart php7.0-fpm
 sudo systemctl restart php7.1-fpm
-
-sudo reboot
 
 exit 0
