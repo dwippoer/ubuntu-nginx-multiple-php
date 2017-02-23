@@ -45,6 +45,7 @@ sudo su - root -c 'chown -R root:root /var/log/nginx && chmod 775 /var/log/nginx
 sudo su - root -c 'rm -f /etc/nginx/nginx.conf'
 sudo su - root -c 'cp /tmp/install/nginx.conf /etc/nginx'
 sudo su - root -c 'cp /tmp/install/vhost.conf /etc/nginx/conf.d'
+sudo su - root -c 'cp /tmp/install/phpmyadmin-vhost.conf /etc/nginx/conf.d'
 
 #create vhost dir
 if [ ! -d $vhost_dir ];
