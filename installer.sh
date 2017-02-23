@@ -100,6 +100,7 @@ fi
 wget https://files.phpmyadmin.net/phpMyAdmin/4.6.6/phpMyAdmin-4.6.6-all-languages.zip -P $temp_dir
 sudo su - root -c 'unzip $temp_dir/phpMyAdmin*.zip -d /usr/share && mv /usr/share/phpMyAdmin* /usr/share/phpmyadmin'
 sudo su - root -c 'cp $phpmyadmin_dir/config.inc.sample.php $phpmyadmin_dir/config.inc.php'
+sudo su - root -c 'echo "127.0.0.1	sql.local" >> /etc/hosts'
 
 #change php session ownership
 sudo chmod 775 /var/lib/php/session
