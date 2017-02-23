@@ -2,6 +2,8 @@
 temp_dir="/tmp/install"
 vhost_dir="/home/vhost"
 services="nginx mysql"
+phpmyadmin_dir="/usr/share/phpmyadmin"
+
 #update repo
 sudo add-apt-repository ppa:ondrej/php -y
 
@@ -89,6 +91,19 @@ sudo su - root -c 'sed -i "/;date.timezone =/c\date.timezone = Asia/Jakarta" /et
 sudo su - root -c 'sed -i "/listen = /run/php/php7.1-fpm.sock/c\listen = 127.0.0.1:9002" /etc/php/7.1/fpm/pool.d/www.conf'
 sudo systemctl start php7.1-fpm
 sudo systemctl enable php7.1-fpm
+
+#phpmyadmin
+if [ -d $phpmyadmin_dir ];
+then
+	sudo mv $phpmyadmin /usr/share/old_phpmyadmin;
+fi
+wget https://files.phpmyadmin.net/phpMyAdmin/4.6.6/phpMyAdmin-4.6.6-all-languages.zip -P $temp_dir
+sudo su - root -c 'unzip $temp_dir/phpMyAdmin*.zip -d /usr/share && mv /usr/share/phpMyAdmin* /usr/share/phpmyadmin'
+sudo su - root -c 'cp $phpmyadmin_dir/config.inc.sample.php $phpmyadmin_dir/config.inc.php'
+
+#change php session ownership
+sudo chmod 775 /var/lib/php/session
+sudo chown -R www-data:www-data /var/lib/php/session
 
 #restart services
 for p in $services
