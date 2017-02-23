@@ -74,14 +74,18 @@ fi
 #update php 5.6
 sudo su - root -c 'sed -i "/;cgi.fix_pathinfo=1/c\cgi.fix_pathinfo=0" /etc/php/5.6/fpm/php.ini'
 sudo su - root -c 'sed -i "/;date.timezone =/c\date.timezone = Asia/Jakarta" /etc/php/5.6/fpm/php.ini'
+
 sudo su - root -c 'sed -i "/listen = \/run\/php\/php5.6-fpm.sock/c\listen = 127.0.0.1:9000" /etc/php/5.6/fpm/pool.d/www.conf'
+
 sudo systemctl start php5.6-fpm
 sudo systemctl enable php5.6-fpm
 
 #update php 7.0
 sudo su - root -c 'sed -i "/;cgi.fix_pathinfo=1/c\cgi.fix_pathinfo=0" /etc/php/7.0/fpm/php.ini'
 sudo su - root -c 'sed -i "/;date.timezone =/c\date.timezone = Asia/Jakarta" /etc/php/7.0/fpm/php.ini'
+
 sudo su - root -c 'sed -i "/listen = \/run\/php\/php7.0-fpm.sock/c\listen = 127.0.0.1:9001" /etc/php/7.0/fpm/pool.d/www.conf'
+
 sudo systemctl start php7.0-fpm
 sudo systemctl enable php7.0-fpm
 
@@ -89,7 +93,9 @@ sudo systemctl enable php7.0-fpm
 #update php 7.1
 sudo su - root -c 'sed -i "/;cgi.fix_pathinfo=1/c\cgi.fix_pathinfo=0" /etc/php/7.1/fpm/php.ini'
 sudo su - root -c 'sed -i "/;date.timezone =/c\date.timezone = Asia/Jakarta" /etc/php/7.1/fpm/php.ini'
+
 sudo su - root -c 'sed -i "/listen = \/run\/php\/php7.1-fpm.sock/c\listen = 127.0.0.1:9002" /etc/php/7.1/fpm/pool.d/www.conf'
+
 sudo systemctl start php7.1-fpm
 sudo systemctl enable php7.1-fpm
 
